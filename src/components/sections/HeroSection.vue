@@ -167,19 +167,19 @@ const colorizedCode = computed(() => {
         <!-- Botones -->
         <div
           :class="[
-            'flex items-center gap-4 transition-all duration-700 delay-500',
+            'flex flex-col sm:flex-row items-stretch sm:items-center gap-3 transition-all duration-700 delay-500',
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
           ]"
         >
           <RouterLink
             to="/services"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-violet-700 hover:bg-violet-600 text-white text-sm tracking-widest uppercase rounded-full transition-all duration-300 whitespace-nowrap"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-violet-700 hover:bg-violet-600 text-white text-sm tracking-widest uppercase rounded-full transition-all duration-300"
           >
             Ver servicios <span>→</span>
           </RouterLink>
           <RouterLink
             to="/contact"
-            class="inline-flex items-center gap-2 px-6 py-3 border border-violet-700/50 text-violet-300 hover:bg-violet-700/20 text-sm tracking-widest uppercase rounded-full transition-all duration-300"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 border border-violet-700/50 text-violet-300 hover:bg-violet-700/20 text-sm tracking-widest uppercase rounded-full transition-all duration-300"
           >
             Contactanos
           </RouterLink>
@@ -188,23 +188,24 @@ const colorizedCode = computed(() => {
         <!-- Stats -->
         <div
           :class="[
-            'flex items-center gap-6 md:gap-10 pt-4 border-t border-white/5 transition-all duration-700 delay-700',
+            'flex items-start gap-4 md:gap-10 pt-4 border-t border-white/5 transition-all duration-700 delay-700',
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
           ]"
         >
           <template v-for="(stat, index) in stats" :key="index">
             <div class="flex flex-col">
-              <span class="text-3xl font-black tracking-tighter text-white">{{
-                stat.value
-              }}</span>
-              <span class="text-xs tracking-widest uppercase text-white/40">{{
-                stat.label
-              }}</span>
+              <span
+                class="text-2xl md:text-3xl font-black tracking-tighter text-white"
+                >{{ stat.value }}</span
+              >
+              <span
+                class="text-[9px] md:text-xs tracking-wider uppercase text-white/40 leading-tight"
+                >{{ stat.label }}</span
+              >
             </div>
-            <!-- Separador vertical entre stats -->
             <span
               v-if="index < stats.length - 1"
-              class="h-8 w-px bg-white/10"
+              class="h-8 w-px bg-white/10 mt-1"
             />
           </template>
         </div>
