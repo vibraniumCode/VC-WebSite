@@ -40,7 +40,7 @@ const year = new Date().getFullYear();
         </RouterLink>
 
         <!-- Links -->
-        <ul class="flex items-center gap-8">
+        <ul class="flex flex-wrap items-center gap-4 md:gap-8">
           <li v-for="link in links" :key="link.to">
             <RouterLink
               :to="link.to"

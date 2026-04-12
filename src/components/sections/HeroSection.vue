@@ -173,7 +173,7 @@ const colorizedCode = computed(() => {
         >
           <RouterLink
             to="/services"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-violet-700 hover:bg-violet-600 text-white text-sm tracking-widest uppercase rounded-full transition-all duration-300"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-violet-700 hover:bg-violet-600 text-white text-sm tracking-widest uppercase rounded-full transition-all duration-300 whitespace-nowrap"
           >
             Ver servicios <span>→</span>
           </RouterLink>
@@ -188,7 +188,7 @@ const colorizedCode = computed(() => {
         <!-- Stats -->
         <div
           :class="[
-            'flex items-center gap-10 pt-4 border-t border-white/5 transition-all duration-700 delay-700',
+            'flex items-center gap-6 md:gap-10 pt-4 border-t border-white/5 transition-all duration-700 delay-700',
             loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
           ]"
         >
