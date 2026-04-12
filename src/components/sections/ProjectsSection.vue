@@ -55,7 +55,10 @@ portfolio. */}
 <template>
   <section class="relative bg-black py-32 px-6">
     <!-- Header -->
-    <div class="max-w-7xl mx-auto mb-16 flex items-end justify-between">
+    <div
+      data-reveal
+      class="max-w-7xl mx-auto mb-16 flex items-end justify-between"
+    >
       <div class="flex flex-col gap-4">
         <span class="text-xs tracking-widest uppercase text-violet-400">
           Lo que construimos
@@ -68,7 +71,7 @@ portfolio. */}
       </div>
     </div>
 
-    <div class="max-w-7xl mx-auto flex flex-col gap-4">
+    <div data-reveal class="max-w-7xl mx-auto flex flex-col gap-4">
       <!-- CARD DESTACADA — Nexus -->
       <div
         class="relative overflow-hidden rounded-2xl border border-white/5 bg-white/2 p-10 cursor-pointer transition-all duration-500 group"
@@ -144,7 +147,7 @@ portfolio. */}
       </div>
 
       <!-- GRID 3 CARDS -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div data-reveal class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div
           v-for="(project, index) in projects.slice(1)"
           :key="index"

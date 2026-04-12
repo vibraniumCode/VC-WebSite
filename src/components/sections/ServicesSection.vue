@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useScrollReveal } from "@/composables/useScrollReveal";
+useScrollReveal();
 
 const hoveredIndex = ref<number | null>(null);
 
@@ -51,7 +53,10 @@ Los tags cambian de border-white/10 text-white/30 a border-violet-700/40 text-vi
 <template>
   <section class="relative bg-black py-32 px-6">
     <!-- Header de sección -->
-    <div class="max-w-7xl mx-auto mb-16 flex items-end justify-between">
+    <div
+      data-reveal
+      class="max-w-7xl mx-auto mb-16 flex items-end justify-between"
+    >
       <div class="flex flex-col gap-4">
         <!-- Badge -->
         <span class="text-xs tracking-widest uppercase text-violet-400">
@@ -75,7 +80,7 @@ Los tags cambian de border-white/10 text-white/30 a border-violet-700/40 text-vi
     </div>
 
     <!-- Cards -->
-    <div class="max-w-7xl mx-auto flex flex-col">
+    <div data-reveal class="max-w-7xl mx-auto flex flex-col">
       <div
         v-for="(service, index) in services"
         :key="index"
