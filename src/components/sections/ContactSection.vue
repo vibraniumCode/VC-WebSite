@@ -12,27 +12,39 @@ const form = ref({
 const sending = ref(false);
 const sent = ref(false);
 
-function handleSubmit() {
+async function handleSubmit() {
   if (!form.value.name || !form.value.email || !form.value.message) return;
 
   sending.value = true;
 
-  // Por ahora abre el mail con los datos del form
-  const subject = encodeURIComponent(`Consulta de ${form.value.name}`);
-  const body = encodeURIComponent(
-    `Nombre: ${form.value.name}\nEmail: ${form.value.email}\n\nMensaje:\n${form.value.message}`,
-  );
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form.value.name,
+        email: form.value.email,
+        message: form.value.message,
+      }),
+    });
 
-  window.open(`mailto:vibraniumcode@gmail.com?subject=${subject}&body=${body}`);
+    if (response.ok) {
+      sent.value = true;
+      form.value = { name: "", email: "", message: "" };
 
-  sending.value = false;
-  sent.value = true;
-
-  // Reset después de 3 segundos
-  setTimeout(() => {
-    sent.value = false;
-    form.value = { name: "", email: "", message: "" };
-  }, 3000);
+      setTimeout(() => {
+        sent.value = false;
+      }, 3000);
+    } else {
+      alert("Error al enviar el mensaje. Intentá de nuevo.");
+    }
+  } catch (error) {
+    alert("Error de conexión. Intentá de nuevo.");
+  } finally {
+    sending.value = false;
+  }
 }
 
 const contactInfo = [
