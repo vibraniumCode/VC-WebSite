@@ -45,7 +45,8 @@ npm run build
 ## ⚙️ Variables de entorno
 
 Creá un archivo `.env` en la raíz con estas variables:
-
+GMAIL_USER=tu-email@gmail.com
+GMAIL_PASS=tu-contraseña-de-aplicacion
 ---
 
 ## 📬 Contacto
