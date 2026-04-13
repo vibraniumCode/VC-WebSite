@@ -1,0 +1,12 @@
+Para agregar un nuevo post en el futuro es simple:
+1 — Creás el archivo en src/posts/mi-nuevo-post.md
+2 — Lo agregás en el mapa de BlogPostView.vue:
+tsconst posts = {
+  'nexus-caso-de-estudio': () => import('@/posts/nexus-caso-de-estudio.md?raw'),
+  'mi-nuevo-post': () => import('@/posts/mi-nuevo-post.md?raw'),  // ← nuevo
+}
+3 — Lo agregás en la lista de BlogView.vue:
+tsposts.value = [
+  { slug: 'nexus-caso-de-estudio', ... },
+  { slug: 'mi-nuevo-post', ... },  // ← nuevo
+]

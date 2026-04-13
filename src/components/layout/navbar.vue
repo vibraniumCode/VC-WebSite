@@ -23,6 +23,7 @@ const links = [
   { label: "Servicios", to: "/services" },
   { label: "Proyectos", to: "/projects" },
   { label: "Nosotros", to: "/about" },
+  { label: "Blog", to: "/blog" },
 ];
 </script>
 
