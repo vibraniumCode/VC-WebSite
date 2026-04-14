@@ -109,6 +109,7 @@ const social = [
             <img
               :src="marcosImg"
               alt="Marcos López — VibraniumCode"
+              loading="lazy"
               class="w-full max-w-sm object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
 

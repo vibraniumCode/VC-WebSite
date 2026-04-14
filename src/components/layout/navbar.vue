@@ -44,6 +44,7 @@ const links = [
         <img
           src="../../assets/VC_icon.png"
           alt="VibraniumCode"
+          loading="eager"
           class="h-12 w-auto"
         />
       </RouterLink>

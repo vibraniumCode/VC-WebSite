@@ -168,6 +168,7 @@ portfolio. */}
               v-if="project.image"
               :src="project.image"
               :alt="project.name"
+              loading="lazy"
               class="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
             />
             <!-- Placeholder si no tiene imagen -->

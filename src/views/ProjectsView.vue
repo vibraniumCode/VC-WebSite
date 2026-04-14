@@ -177,6 +177,7 @@ const projects = [
               v-if="project.image"
               :src="project.image"
               :alt="project.name"
+              loading="lazy"
               class="w-full h-full object-cover object-top opacity-70 hover:opacity-100 transition-all duration-500 hover:scale-105"
             />
             <div v-else class="w-full h-full flex items-center justify-center">
