@@ -10,3 +10,7 @@ declare module '*.vue' {
 declare module '@/composables/useScrollReveal' {
   export function useScrollReveal(): void
 }
+
+declare module '@/composables/useCursor' {
+  export function useCursor(): void
+}
