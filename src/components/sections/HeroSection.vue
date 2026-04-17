@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 
 const loaded = ref(false);
+const scrollY = ref(0);
 
 // ── Count-up ────────────────────────────────
 const displayAnio = ref(0);
@@ -11,6 +12,10 @@ const displayClientes = ref(0);
 // ── Typewriter ──────────────────────────────
 const displayedCode = ref("");
 const showCursor = ref(true);
+
+function onScroll() {
+  scrollY.value = window.scrollY;
+}
 
 const fullCode = `const app = {
   nombre: "VibraniumCode",
@@ -40,8 +45,8 @@ onMounted(() => {
     displayClientes.value = Math.floor(progress * 3);
     if (progress < 1) requestAnimationFrame(countUp);
     else {
-      displayAnio.value = 7;
-      displayProyectos.value = 4;
+      displayAnio.value = 1;
+      displayProyectos.value = 5;
       displayClientes.value = 3;
     }
   };
@@ -112,6 +117,9 @@ const colorizedCode = computed(() => {
 
   return tokens;
 });
+
+onMounted(() => window.addEventListener("scroll", onScroll));
+onUnmounted(() => window.removeEventListener("scroll", onScroll));
 </script>
 <template>
   <section
@@ -119,7 +127,12 @@ const colorizedCode = computed(() => {
   >
     <!-- FONDO DECORATIVO — sin el absolute que molesta -->
     <span
-      class="absolute text-[20vw] font-black tracking-tighter text-white/5 uppercase leading-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
+      class="absolute text-[20vw] font-black tracking-tighter text-white/5 uppercase leading-none pointer-events-none select-none"
+      :style="{
+        top: '50%',
+        left: '50%',
+        transform: `translate(-50%, calc(-50% + ${scrollY * 0.4}px))`,
+      }"
     >
       CODE
     </span>
