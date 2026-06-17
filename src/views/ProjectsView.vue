@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import byAmelieImg from "@/assets/projects/byamelie.png";
+import byAmelieImg from "@/assets/projects/byAmelie.png";
 import portfolioImg from "@/assets/projects/portfolioImg.png";
 import nexusImg from "@/assets/projects/nexusImg.png";
 import sianImg from "@/assets/projects/sianImg.jpeg";
