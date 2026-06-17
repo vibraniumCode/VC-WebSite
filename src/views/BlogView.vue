@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { parseFrontmatter } from "@/utils/parseFrontmatter";
 
 interface Post {
   slug: string;
@@ -11,19 +12,33 @@ interface Post {
 
 const posts = ref<Post[]>([]);
 
+const modules = import.meta.glob("@/posts/*.md", {
+  query: "?raw",
+  import: "default",
+});
+
 onMounted(async () => {
-  // Por ahora los posts son manuales
-  // Cuando agregues uno nuevo, agregás un objeto acá
-  posts.value = [
-    {
-      slug: "nexus-caso-de-estudio",
-      title: "Cómo migramos un sistema de Visual Basic 6 a Vue 3",
-      date: "2026-04-13",
-      category: "Caso de estudio",
-      description:
-        "La historia detrás de Nexus — cómo transformamos un sistema desktop legacy en una plataforma web moderna.",
-    },
-  ];
+  const loadedPosts: Post[] = [];
+
+  for (const path in modules) {
+    const raw = (await modules[path]()) as string;
+
+    const { data } = parseFrontmatter(raw);
+
+    const slug = path.split("/").pop()?.replace(".md", "") as string;
+
+    loadedPosts.push({
+      slug,
+      title: data.title,
+      date: data.date,
+      category: data.category,
+      description: data.description,
+    });
+  }
+
+  posts.value = loadedPosts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 });
 </script>
 

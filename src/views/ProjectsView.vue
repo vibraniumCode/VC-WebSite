@@ -1,250 +1,348 @@
 <script setup lang="ts">
-import { useScrollReveal } from "@/composables/useScrollReveal";
-import portafolioImg from "@/assets/projects/portafolio-v2.png";
+import { ref, computed } from "vue";
+import byAmelieImg from "@/assets/projects/byamelie.png";
+import portfolioImg from "@/assets/projects/portfolioImg.png";
+import nexusImg from "@/assets/projects/nexusImg.png";
+import sianImg from "@/assets/projects/sianImg.jpeg";
+import sappImg from "@/assets/projects/sappImg.png";
 
-useScrollReveal();
+interface Project {
+  id: number;
+  number: string;
+  name: string;
+  version: string;
+  year: string;
+  description: string;
+  tags: string[];
+  category: string; // "web" | "desktop" | "mobile" | etc.
+  image: string | null;
+  link: string | null;
+  featured: boolean;
+  status: "en uso" | "en desarrollo" | "finalizado";
+}
 
-const projects = [
+// ── Agregá todos tus proyectos acá ──
+const allProjects: Project[] = [
   {
+    id: 1,
     number: "01",
+    name: "ByAmelie",
+    version: "v1.0",
+    year: "2025",
+    description:
+      "E-commerce completo para tienda de electrodomésticos, blanquería y bazar. Catálogo con 270+ productos, carrito, wishlist, panel admin con dashboard de ventas en tiempo real, gestión de pedidos y notificaciones por email.",
+    tags: [
+      "Vue",
+      "TypeScript",
+      "Tailwind",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Mongoose",
+      "Socket.io",
+      "Cloudinary",
+      "JWT",
+      "Nodemailer",
+      "Multer",
+      "Axios",
+    ],
+    category: "web",
+    image: byAmelieImg,
+    link: "https://by-amelie.vercel.app/",
+    featured: true,
+    status: "en uso",
+  },
+  {
+    id: 2,
+    number: "02",
     name: "Nexus",
     version: "v2.0",
-    featured: true,
+    year: "2024",
     description:
-      "Sistema web de comprobantes para estaciones de servicio. Migrado desde Visual Basic 6 a plataforma web moderna con generación masiva de documentos.",
-    challenge:
-      "Sistema legacy en Visual Basic 6 que necesitaba escalar. El cliente requería generar múltiples comprobantes simultáneos desde cualquier dispositivo.",
-    result:
-      "Plataforma web moderna con generación masiva de comprobantes, accesible desde cualquier browser, con panel de administración completo.",
+      "Sistema web de comprobantes para estaciones de servicio. Migrado desde Visual Basic 6 a plataforma moderna con generación masiva de documentos. Acceso restringido — sistema interno de uso exclusivo del cliente.",
     tags: ["Vue", "TypeScript", "Node.js", "SQL"],
-    image: null,
+    category: "web",
+    image: nexusImg,
+    link: null,
+    featured: false,
+    status: "en uso",
   },
   {
-    number: "02",
+    id: 3,
+    number: "03",
     name: "SIAN",
     version: "v1.0",
-    featured: false,
+    year: "2023",
     description:
-      "Sistema de gestión para hamburguesería. Control de pedidos, cierre de caja y reportes diarios, semanales y mensuales.",
-    challenge: null,
-    result: null,
+      "Sistema de gestión para hamburguesería. Control de pedidos, cierre de caja y reportes diarios, semanales y mensuales. Acceso restringido — sistema interno de uso exclusivo del cliente.",
     tags: ["Visual Basic 6", "SQL Server"],
-    image: null,
+    category: "desktop",
+    image: sianImg,
+    link: null,
+    featured: false,
+    status: "en uso",
   },
   {
-    number: "03",
+    id: 4,
+    number: "04",
     name: "System App",
     version: "v1.0",
-    featured: false,
+    year: "2023",
     description:
-      "Generador de comprobantes personalizados multi-negocio. Desarrollado en entorno desktop, actualmente en uso por el cliente.",
-    challenge: null,
-    result: null,
+      "Generador de comprobantes personalizados multi-negocio. Desarrollado en entorno desktop. Acceso restringido — sistema interno de uso exclusivo del cliente.",
     tags: ["Visual Basic 6", "SQL Server"],
-    image: null,
+    category: "desktop",
+    image: sappImg,
+    link: null,
+    featured: false,
+    status: "en uso",
   },
   {
-    number: "04",
+    id: 5,
+    number: "05",
     name: "Portfolio",
     version: "v2.0",
-    featured: false,
+    year: "2024",
     description:
       "Portfolio personal desarrollado con tecnologías modernas. Diseño responsive con modo oscuro/claro.",
-    challenge: null,
-    result: null,
     tags: ["Vue", "TypeScript", "Tailwind"],
-    image: portafolioImg,
+    category: "web",
+    image: portfolioImg,
+    link: "https://portafolio-dev-2x2w.vercel.app",
+    featured: false,
+    status: "en uso",
   },
+  // Agregá más proyectos acá con la misma estructura ↑
 ];
+
+// ── Filtros ──
+const activeFilter = ref<string>("todos");
+
+const categories = computed(() => {
+  const cats = new Set(allProjects.map((p) => p.category));
+  return ["todos", ...Array.from(cats)];
+});
+
+const filtered = computed(() =>
+  activeFilter.value === "todos"
+    ? allProjects
+    : allProjects.filter((p) => p.category === activeFilter.value),
+);
+
+const hoveredId = ref<number | null>(null);
+
+function openLink(link: string | null) {
+  if (link) window.open(link, "_blank", "noopener");
+}
+
+const statusColor: Record<Project["status"], string> = {
+  "en uso": "text-emerald-400 border-emerald-800/60",
+  "en desarrollo": "text-amber-400 border-amber-800/60",
+  finalizado: "text-white/30 border-white/10",
+};
+
+const categoryLabel: Record<string, string> = {
+  todos: "Todos",
+  web: "Web",
+  desktop: "Desktop",
+  mobile: "Mobile",
+};
 </script>
+
 <template>
-  <!-- Hero -->
-  <section class="bg-black pt-40 pb-16 px-6">
-    <div class="max-w-7xl mx-auto flex flex-col gap-4">
-      <span class="text-xs tracking-widest uppercase text-violet-400">
-        Lo que construimos
-      </span>
-      <h1
-        class="text-6xl md:text-8xl font-black tracking-tighter text-white leading-none"
-      >
-        Proyectos.
-      </h1>
-      <p class="text-white/40 text-lg max-w-lg leading-relaxed">
-        Cada proyecto es un problema real resuelto con tecnología y criterio.
-      </p>
-    </div>
-  </section>
-
-  <div class="border-t border-white/5" />
-
-  <!-- Proyectos -->
-  <section class="bg-black py-32 px-6">
-    <div class="max-w-7xl mx-auto flex flex-col gap-8">
-      <!-- NEXUS — Card destacada -->
-      <div
-        data-reveal
-        class="relative overflow-hidden rounded-2xl border border-violet-900/30 bg-white/[0.02] p-10"
-      >
-        <!-- Fondo decorativo -->
+  <main class="min-h-screen bg-black">
+    <!-- ── Hero ── -->
+    <section class="pt-40 pb-20 px-6">
+      <div class="max-w-7xl mx-auto">
         <span
-          class="absolute right-10 top-1/2 -translate-y-1/2 text-[12vw] font-black text-white/[0.02] tracking-tighter pointer-events-none select-none uppercase"
+          class="text-xs tracking-widest uppercase text-violet-400 block mb-4"
         >
-          {{ projects[0].name }}
+          Vibranium Code
         </span>
-
-        <div class="relative z-10 flex flex-col gap-8">
-          <!-- Header -->
-          <div class="flex items-center gap-4">
-            <span class="text-sm font-mono text-violet-400">{{
-              projects[0].number
-            }}</span>
-            <span
-              class="text-xs tracking-widest uppercase text-white/20 border border-white/10 px-3 py-1 rounded-full"
-            >
-              {{ projects[0].version }}
-            </span>
-            <span
-              class="text-xs tracking-widest uppercase text-violet-300 border border-violet-700/40 px-3 py-1 rounded-full"
-            >
-              Destacado
-            </span>
-          </div>
-
-          <!-- Título -->
-          <h2
-            class="text-4xl md:text-6xl font-black tracking-tighter text-white"
-          >
-            {{ projects[0].name }}
-          </h2>
-
-          <!-- Descripción -->
-          <p class="text-white/50 text-lg leading-relaxed max-w-2xl">
-            {{ projects[0].description }}
-          </p>
-
-          <!-- Desafío y resultado -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div
-              class="flex flex-col gap-3 p-6 rounded-xl border border-white/5 bg-white/[0.02]"
-            >
-              <span class="text-xs tracking-widest uppercase text-violet-400">
-                El desafío
-              </span>
-              <p class="text-white/50 text-sm leading-relaxed">
-                {{ projects[0].challenge }}
-              </p>
-            </div>
-
-            <div
-              class="flex flex-col gap-3 p-6 rounded-xl border border-white/5 bg-white/[0.02]"
-            >
-              <span class="text-xs tracking-widest uppercase text-violet-400">
-                El resultado
-              </span>
-              <p class="text-white/50 text-sm leading-relaxed">
-                {{ projects[0].result }}
-              </p>
-            </div>
-          </div>
-
-          <!-- Tags -->
-          <div class="flex items-center gap-2 flex-wrap">
-            <span
-              v-for="tag in projects[0].tags"
-              :key="tag"
-              class="text-xs tracking-widest uppercase px-3 py-1 rounded-full border border-violet-700/40 text-violet-300"
-            >
-              {{ tag }}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- GRID 3 cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div
-          v-for="(project, index) in projects.slice(1)"
-          :key="index"
-          data-reveal
-          :data-delay="index * 100"
-          class="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-8 flex flex-col gap-6"
+        <h1
+          class="text-6xl md:text-8xl font-black tracking-tighter text-white leading-none mb-6"
         >
-          <!-- Imagen si tiene -->
-          <div
-            class="rounded-xl overflow-hidden h-40 bg-white/[0.03] border border-white/5"
+          Proyectos
+        </h1>
+        <p class="text-white/40 text-lg max-w-xl leading-relaxed">
+          Sistemas reales construidos para clientes reales. Desde apps de
+          escritorio hasta plataformas web modernas.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Filtros ── -->
+    <section class="px-6 pb-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button
+            v-for="cat in categories"
+            :key="cat"
+            @click="activeFilter = cat"
+            class="text-xs tracking-widest uppercase px-4 py-2 rounded-full border transition-all duration-300"
+            :class="
+              activeFilter === cat
+                ? 'border-violet-700/60 text-violet-300 bg-violet-950/30'
+                : 'border-white/10 text-white/30 hover:border-white/20 hover:text-white/50'
+            "
           >
-            <img
-              v-if="project.image"
-              :src="project.image"
-              :alt="project.name"
-              loading="lazy"
-              class="w-full h-full object-cover object-top opacity-70 hover:opacity-100 transition-all duration-500 hover:scale-105"
-            />
-            <div v-else class="w-full h-full flex items-center justify-center">
-              <span
-                class="text-4xl font-black tracking-tighter text-white/5 uppercase"
-              >
-                {{ project.name }}
-              </span>
-            </div>
-          </div>
+            {{ categoryLabel[cat] ?? cat }}
+          </button>
+        </div>
+      </div>
+    </section>
 
-          <!-- Info -->
-          <div class="flex flex-col gap-3 flex-1">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono text-violet-400">{{
-                project.number
-              }}</span>
-              <span
-                class="text-xs tracking-widest uppercase text-white/20 border border-white/10 px-2 py-0.5 rounded-full"
-              >
-                {{ project.version }}
-              </span>
-            </div>
+    <!-- ── Grid de proyectos ── -->
+    <section class="px-6 pb-32">
+      <div class="max-w-7xl mx-auto">
+        <!-- Contador -->
+        <p class="text-xs text-white/20 tracking-widest uppercase mb-8">
+          {{ filtered.length }} proyecto{{ filtered.length !== 1 ? "s" : "" }}
+        </p>
 
-            <h3 class="text-xl font-bold tracking-tight text-white">
-              {{ project.name }}
-            </h3>
-
-            <p class="text-sm text-white/40 leading-relaxed flex-1">
-              {{ project.description }}
-            </p>
-
-            <!-- Tags -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div
+            v-for="project in filtered"
+            :key="project.id"
+            class="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] flex flex-col transition-all duration-500 group"
+            :class="[
+              hoveredId === project.id
+                ? 'border-violet-900/50 bg-violet-950/10'
+                : '',
+              project.link ? 'cursor-pointer' : 'cursor-default',
+            ]"
+            @mouseenter="hoveredId = project.id"
+            @mouseleave="hoveredId = null"
+            @click="openLink(project.link)"
+          >
+            <!-- Imagen / Placeholder -->
             <div
-              class="flex items-center gap-2 flex-wrap pt-2 border-t border-white/5"
+              class="h-52 overflow-hidden relative bg-white/[0.02] border-b border-white/5"
             >
-              <span
-                v-for="tag in project.tags"
-                :key="tag"
-                class="text-xs tracking-widest uppercase px-2 py-0.5 rounded-full border border-white/10 text-white/30"
+              <img
+                v-if="project.image"
+                :src="project.image"
+                :alt="project.name"
+                loading="lazy"
+                class="w-full h-full object-cover object-top opacity-60 group-hover:opacity-90 transition-all duration-700 group-hover:scale-105"
+              />
+              <div
+                v-else
+                class="w-full h-full flex flex-col items-center justify-center gap-3 select-none"
               >
-                {{ tag }}
-              </span>
+                <!-- Grid de puntos decorativo -->
+                <div
+                  class="absolute inset-0 opacity-20"
+                  style="
+                    background-image: radial-gradient(
+                      circle,
+                      rgba(139, 92, 246, 0.15) 1px,
+                      transparent 1px
+                    );
+                    background-size: 24px 24px;
+                  "
+                />
+                <span
+                  class="relative text-5xl font-black tracking-tighter text-white/[0.07] uppercase z-10"
+                >
+                  {{ project.name.charAt(0) }}
+                </span>
+                <span
+                  class="relative text-[10px] tracking-widest uppercase text-white/20 border border-white/10 px-3 py-1 rounded-full z-10"
+                >
+                  {{
+                    project.category === "desktop"
+                      ? "App de escritorio"
+                      : "Sin captura"
+                  }}
+                </span>
+              </div>
+
+              <!-- Link hover overlay -->
+              <div
+                v-if="project.link"
+                class="absolute inset-0 bg-violet-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20"
+              >
+                <span
+                  class="text-xs tracking-widest uppercase text-violet-300 font-bold"
+                >
+                  Ver sitio →
+                </span>
+              </div>
+
+              <!-- Badge featured -->
+              <div
+                v-if="project.featured"
+                class="absolute top-3 left-3 z-10 text-xs tracking-widest uppercase text-violet-300 border border-violet-700/40 px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-sm"
+              >
+                Destacado
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-7 flex flex-col gap-4 flex-1">
+              <!-- Meta row -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-mono text-violet-400">{{
+                    project.number
+                  }}</span>
+                  <span class="text-white/20 text-xs">·</span>
+                  <span class="text-xs text-white/20">{{ project.year }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="text-[10px] tracking-widest uppercase border px-2 py-0.5 rounded-full"
+                    :class="statusColor[project.status]"
+                  >
+                    {{ project.status }}
+                  </span>
+                  <span
+                    class="text-[10px] tracking-widest uppercase text-white/20 border border-white/10 px-2 py-0.5 rounded-full"
+                  >
+                    {{ project.version }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Title -->
+              <h3 class="text-2xl font-bold tracking-tight text-white">
+                {{ project.name }}
+              </h3>
+
+              <!-- Description -->
+              <p class="text-sm text-white/40 leading-relaxed flex-1">
+                {{ project.description }}
+              </p>
+
+              <!-- Tags -->
+              <div
+                class="flex items-center gap-2 flex-wrap pt-3 border-t border-white/5"
+              >
+                <span
+                  v-for="tag in project.tags"
+                  :key="tag"
+                  class="text-[10px] tracking-widest uppercase px-2 py-0.5 rounded-full border border-white/10 text-white/30 transition-all duration-300"
+                  :class="
+                    hoveredId === project.id
+                      ? 'border-violet-700/40 text-violet-300'
+                      : ''
+                  "
+                >
+                  {{ tag }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- CTA -->
-  <section class="bg-black py-32 px-6">
-    <div
-      class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8"
-    >
-      <h2
-        class="text-4xl md:text-5xl font-black tracking-tighter text-white leading-none"
-      >
-        ¿Tu proyecto<br />
-        <span class="text-violet-400">es el próximo?</span>
-      </h2>
-      <RouterLink
-        to="/contact"
-        class="inline-flex items-center gap-2 px-8 py-4 bg-violet-700 hover:bg-violet-600 text-white text-sm tracking-widest uppercase rounded-full transition-all duration-300 whitespace-nowrap"
-      >
-        Hablemos →
-      </RouterLink>
-    </div>
-  </section>
+        <!-- Empty state -->
+        <div v-if="filtered.length === 0" class="text-center py-24">
+          <p class="text-white/20 text-sm tracking-widest uppercase">
+            No hay proyectos en esta categoría
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>

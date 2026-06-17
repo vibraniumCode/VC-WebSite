@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { marked } from "marked";
+import { parseFrontmatter } from "@/utils/parseFrontmatter";
 
 const route = useRoute();
 const router = useRouter();
@@ -22,52 +23,10 @@ const frontmatter = ref<Frontmatter>({
 
 const postContent = ref("");
 
-function parseFrontmatter(raw: string) {
-  const lines = raw.split("\n");
-
-  // Verificar que empiece con ---
-  if (lines[0].trim() !== "---") {
-    return { data: {} as Record<string, string>, content: raw };
-  }
-
-  // Buscar el cierre del frontmatter
-  let endIndex = -1;
-  for (let i = 1; i < lines.length; i++) {
-    if (lines[i].trim() === "---") {
-      endIndex = i;
-      break;
-    }
-  }
-
-  if (endIndex === -1) {
-    return { data: {} as Record<string, string>, content: raw };
-  }
-
-  // Parsear los campos
-  const data: Record<string, string> = {};
-  for (let i = 1; i < endIndex; i++) {
-    const colonIndex = lines[i].indexOf(":");
-    if (colonIndex !== -1) {
-      const key = lines[i].slice(0, colonIndex).trim();
-      const value = lines[i]
-        .slice(colonIndex + 1)
-        .trim()
-        .replace(/^"|"$/g, "");
-      data[key] = value;
-    }
-  }
-
-  // El contenido empieza después del segundo ---
-  const content = lines
-    .slice(endIndex + 1)
-    .join("\n")
-    .trim();
-
-  return { data, content };
-}
-
 const posts: Record<string, () => Promise<{ default: string }>> = {
   "nexus-caso-de-estudio": () => import("@/posts/nexus-caso-de-estudio.md?raw"),
+  "nexus-caso-de-estudio-copy": () =>
+    import("@/posts/nexus-caso-de-estudio-copy.md?raw"),
 };
 
 const htmlContent = computed(() => marked(postContent.value) as string);
