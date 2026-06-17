@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import byAmelieImg from "@/assets/projects/byamelie.png";
+import byAmelieImg from "@/assets/projects/byAmelie.png";
 import portfolioImg from "@/assets/projects/portfolioImg.png";
 import nexusImg from "@/assets/projects/nexusImg.png";
 import sianImg from "@/assets/projects/sianImg.jpeg";
 
-// Importá tus imágenes reales así:
-// import byAmelieImg from "@/assets/projects/byamelie.png";   ← screenshot del hero
-// import nexusImg from "@/assets/projects/nexus.png";
-// import sianImg from "@/assets/projects/sian.png";
-// import portfolioImg from "@/assets/projects/portafolio-v2.png";
+
 
 const router = useRouter();
 const hoveredIndex = ref<number | null>(null);
