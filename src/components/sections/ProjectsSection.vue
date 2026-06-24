@@ -5,8 +5,7 @@ import byAmelieImg from "@/assets/projects/byAmelie.png";
 import portfolioImg from "@/assets/projects/portfolioImg.png";
 import nexusImg from "@/assets/projects/nexusImg.png";
 import sianImg from "@/assets/projects/sianImg.jpeg";
-
-
+import barberImg from "@/assets/projects/barberImg.png";
 
 const router = useRouter();
 const hoveredIndex = ref<number | null>(null);
@@ -46,13 +45,27 @@ const featuredProjects: Project[] = [
   },
   {
     number: "02",
-    name: "Nexus",
-    version: "v2.0",
+    name: "Sistema de Gestión para Barberías",
+    version: "v1.0",
     description:
-      "Sistema web de comprobantes para estaciones de servicio. Migrado desde Visual Basic 6 a plataforma moderna con generación masiva de documentos. Acceso restringido — sistema interno de uso exclusivo del cliente.",
-    tags: ["Vue", "TypeScript", "Node.js", "SQL"],
-    image: nexusImg, // reemplazá con: nexusImg
-    link: null,
+      "Desarrollo de una aplicación web completa para la administración y gestión de barberías, diseñada para optimizar la reserva de turnos y la organización del negocio.",
+    tags: [
+      "Vue",
+      "JavaScript",
+      "Tailwind",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Mongoose",
+      "Socket.io",
+      "Cloudinary",
+      "JWT",
+      "Nodemailer",
+      "Multer",
+      "Axios",
+    ],
+    image: barberImg, // reemplazá con: barberImg
+    link: "https://barber-frontend-gray.vercel.app/",
     featured: false,
   },
   {

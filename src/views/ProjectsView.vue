@@ -5,6 +5,7 @@ import portfolioImg from "@/assets/projects/portfolioImg.png";
 import nexusImg from "@/assets/projects/nexusImg.png";
 import sianImg from "@/assets/projects/sianImg.jpeg";
 import sappImg from "@/assets/projects/sappImg.png";
+import barberImg from "@/assets/projects/barberImg.png";
 
 interface Project {
   id: number;
@@ -55,15 +56,29 @@ const allProjects: Project[] = [
   {
     id: 2,
     number: "02",
-    name: "Nexus",
-    version: "v2.0",
-    year: "2024",
+    name: "Sistema de Gestión para Barberías",
+    version: "v1.0",
+    year: "2026",
     description:
-      "Sistema web de comprobantes para estaciones de servicio. Migrado desde Visual Basic 6 a plataforma moderna con generación masiva de documentos. Acceso restringido — sistema interno de uso exclusivo del cliente.",
-    tags: ["Vue", "TypeScript", "Node.js", "SQL"],
+      "Desarrollo de una aplicación web completa para la administración y gestión de barberías, diseñada para optimizar la reserva de turnos y la organización del negocio.",
+    tags: [
+      "Vue",
+      "JavaScript",
+      "Tailwind",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Mongoose",
+      "Socket.io",
+      "Cloudinary",
+      "JWT",
+      "Nodemailer",
+      "Multer",
+      "Axios",
+    ],
     category: "web",
-    image: nexusImg,
-    link: null,
+    image: barberImg,
+    link: "https://barber-frontend-gray.vercel.app/",
     featured: false,
     status: "en uso",
   },
@@ -112,7 +127,21 @@ const allProjects: Project[] = [
     featured: false,
     status: "en uso",
   },
-  // Agregá más proyectos acá con la misma estructura ↑
+  {
+    id: 6,
+    number: "06",
+    name: "Nexus",
+    version: "v2.0",
+    year: "2024",
+    description:
+      "Sistema web de comprobantes para estaciones de servicio. Migrado desde Visual Basic 6 a plataforma moderna con generación masiva de documentos. Acceso restringido — sistema interno de uso exclusivo del cliente.",
+    tags: ["Vue", "TypeScript", "Node.js", "SQL"],
+    category: "web",
+    image: nexusImg,
+    link: null,
+    featured: false,
+    status: "en uso",
+  },
 ];
 
 // ── Filtros ──
