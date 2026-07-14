@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import byAmelieImg from "@/assets/projects/byAmelie.png";
-import portfolioImg from "@/assets/projects/portfolioImg.png";
+import portfolioImg_3 from "@/assets/projects/portfolioImg_3.png";
 import sianImg from "@/assets/projects/sianImg.jpeg";
 import barberImg from "@/assets/projects/barberImg.png";
 
@@ -81,12 +81,12 @@ const featuredProjects: Project[] = [
   {
     number: "04",
     name: "Portfolio",
-    version: "v2.0",
+    version: "v3.0",
     description:
-      "Portfolio personal desarrollado con tecnologías modernas. Diseño responsive con modo oscuro/claro.",
+      "Portfolio personal desarrollado con tecnologías modernas. Diseño responsive.",
     tags: ["Vue", "TypeScript", "Tailwind"],
-    image: portfolioImg, // reemplazá con: portfolioImg
-    link: "https://portafolio-dev-2x2w.vercel.app",
+    image: portfolioImg_3, // reemplazá con: portfolioImg_3
+    link: "https://portfolio-mlopez.vercel.app/",
     featured: false,
   },
 ];

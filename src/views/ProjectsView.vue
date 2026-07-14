@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import byAmelieImg from "@/assets/projects/byAmelie.png";
 import portfolioImg from "@/assets/projects/portfolioImg.png";
+import portfolioImg_3 from "@/assets/projects/portfolioImg_3.png";
 import nexusImg from "@/assets/projects/nexusImg.png";
 import sianImg from "@/assets/projects/sianImg.jpeg";
 import sappImg from "@/assets/projects/sappImg.png";
@@ -125,10 +126,25 @@ const allProjects: Project[] = [
     image: portfolioImg,
     link: "https://portafolio-dev-2x2w.vercel.app",
     featured: false,
-    status: "en uso",
+    status: "finalizado",
   },
   {
     id: 6,
+    number: "06",
+    name: "Portfolio",
+    version: "v3.0",
+    year: "2026",
+    description:
+      "Portfolio personal desarrollado con tecnologías modernas. Diseño responsive.",
+    tags: ["Vue", "TypeScript", "Tailwind"],
+    category: "web",
+    image: portfolioImg_3,
+    link: "https://portfolio-mlopez.vercel.app/",
+    featured: false,
+    status: "en uso",
+  },
+  {
+    id: 7,
     number: "06",
     name: "Nexus",
     version: "v2.0",
@@ -143,7 +159,7 @@ const allProjects: Project[] = [
     status: "en uso",
   },
 ];
-
+//portfolioImg_3
 // ── Filtros ──
 const activeFilter = ref<string>("todos");
 
